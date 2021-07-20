@@ -38,4 +38,7 @@ Spring Boot + MyBatis + MySQL + BootStrap + Ajax + Thymeleaf
 
 [Postman](https://chrome.google.com/webstore/detail/coohjcphdfgbiolnekdpbcijmhambjff)
 
-[Git](https://git-scm.com/download)  
+[Git](https://git-scm.com/download)
+
+### 数据库脚本
+于本项目的community.sql文件中保存。
