@@ -50,7 +50,7 @@ public class RegisterController {
             user.setPassword(password);
             user.setAccpuntId(email);
             user.setEmail(email);
-            user.setAvatarUrl("https://oss-anjieliya-guangzhou.oss-cn-guangzhou.aliyuncs.com/5391084a-2e89-4614-a03b-0219a926e152.png?Expires=1962631209&OSSAccessKeyId=LTAI5t6LtFY5QprwdNW7rMUY&Signature=6fZwTmv7xV1KrTgnFBTQmh%2FWVno%3D");
+            user.setAvatarUrl("#");
             userService.create(user);
             model.addAttribute("signupSuccess", "success");
             return "register";
