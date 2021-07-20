@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>安洁社区</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+
+</head>
+<body>
+
+<div th:insert="~{navigation :: nav}"></div>
+
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 page-left">
+            <h2 class="headline"><i class="iconfont icon-wenti index_ali_icon"></i></span>主页</h2>
+
+<!--            排序栏-->
+            <ul class="nav nav-tabs hot_title">
+                <li role="presentation" >
+                    <a th:href="@{/(sort='new')}">
+                        <span class="glyphicon glyphicon-fire ">最新</span>
+                    </a>
+                </li>
+                <li role="presentation" >
+                    <a th:href="@{/(sort='hot')}">
+                        <span class="glyphicon glyphicon-fire hot_question_logo">最热</span>
+                    </a>
+
+                </li>
+                <li role="presentation" >
+                    <a th:href="@{/(sort='no')}">
+                        <span class="glyphicon glyphicon-fire">清除0回复</span>
+                    </a>
+                </li>
+            </ul>
+
+
+<!--            数据展示-->
+            <!--分页展示-->
+            <div class="media" th:each="questionDTO : ${pagination.data}">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-rounded" th:src="${questionDTO.getUser().getAvatarUrl()}">
+                    </a>
+
+                </div>
+                <div class="media-body">
+                    <h4 class="media-heading">
+                        <span th:if="${questionDTO.getPriorities() == 1}" style="color: red">[置顶]</span>
+                        <a th:href="'/question/'+${questionDTO.getId()}" th:text="${questionDTO.getTitle()}"></a>
+                    </h4>
+<!--                    遍历Tag内容，展示Tag-->
+                    <span class="label label-info question-tag" th:each="tag : ${questionDTO.getTag().split(',')}">
+                          <span class="glyphicon glyphicon-tags"></span>
+                          <span class="label label-info" th:text="${tag}"></span>
+                    </span>
+                    <span class="question_info"> <span th:text="${questionDTO.getCommentCount()}"></span> 回复 •<span th:text="${questionDTO.getViewCount()}"></span> 浏览 •
+                        <span th:text="${#dates.format(questionDTO.getGmtCreate(),'yyyy-MM-dd')}"></span>
+                    </span>
+                    <hr>
+
+                </div>
+            </div>
+
+            <!--分页            -->
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <!--是否显示第一页的箭头-->
+                    <li th:if="${pagination.isShowFirstPage()}">
+                        <a th:href="@{/(page=1,search=${search},sort=${sort})}" aria-label="Previous">
+                            <span aria-hidden="true">&lt;&lt;</span>
+                        </a>
+                    </li>
+                    <!--是否显示前一页的箭头-->
+                    <li th:if="${pagination.isShowPrevious()}">
+                        <a th:href="@{/(page=${pagination.getCurPage() - 1},search=${search},sort=${sort})}"
+                           aria-label="Previous">
+                            <span aria-hidden="true">&lt;</span>
+                        </a>
+                    </li>
+                    <!--显示pages列表-->
+                    <li th:each="page : ${pagination.pages}" th:class="${pagination.getCurPage() == page}? 'active': ''">
+                        <a th:href="@{/(page = ${page},search=${search},sort=${sort})}" th:text="${page}">
+                        </a>
+                    </li>
+                    <!--是否显示下一页的箭头-->
+                    <li th:if="${pagination.isShowNext()}">
+                        <a th:href="@{/(page=${pagination.getCurPage() + 1},search=${search},sort=${sort})}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&gt;</span>
+                        </a>
+                    </li>
+                    <!--是否显示最后一页的箭头-->
+                    <li th:if="${pagination.isShowEndPage()}">
+                        <a th:href="@{/(page=${pagination.getTotalPageNum()},search=${search},sort=${sort})}"
+                           aria-label="Next">
+                            <span aria-hidden="true">&gt;&gt;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+
+        <!-- tag页-->
+        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3 class="headline"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>推送页
+                </h3>
+                <img class="img-thumbnail question-egg" src="/imgs/china.jpg">
+
+            </div>
+            <hr class="col-lg-12 col-md-12 col-sm-12 col-xs-12 page-right-line">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hot_tag">
+
+                <h4>
+                    <i class="iconfont icon-LOL-xiaolong tag_ali_icon"></i>
+                    <!--                    <span class="glyphicon glyphicon-grain"></span>-->
+                    热门标签
+                </h4>
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 hot-tag-list">
+
+                    <span class="label label-info hot_tag_list" th:each="tag : ${tags}">
+<!--                        点击标签就相当于进行搜索-->
+<!--                         <a th:href="@{/(page=1,tag=${tag})}">-->
+                          <span class="glyphicon glyphicon-tags hot_tag_style"></span>
+                          <span class="label label-info" th:text="${tag}"></span>
+                         </a>
+                    </span>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
+<div th:insert="~{footer :: foot}"></div>
+
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhl.community.mapper.TagValuesMapper">
+
+    <select id="selectByValue" parameterType="String" resultType="int">
+        select id from tag_values where val = #{val}
+    </select>
+
+    <select id="selectByIds" resultType="String">
+        select val from tag_values
+        where id in
+        <foreach collection="list" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+
+</mapper>

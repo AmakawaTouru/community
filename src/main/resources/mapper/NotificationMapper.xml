@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhl.community.mapper.NotificationMapper">
+
+<insert id="inser" parameterType="Notification">
+    insert into notification (notifier, receiver, outer_id, type, gmt_create, status, notifier_name, outer_title)
+    VALUES (#{notifier},#{receiver},#{outerId},#{type},#{gmtCreate},#{status},#{notifierName},#{outerTitle})
+</insert>
+
+<select id="selectUnreadById" resultType="Notification">
+    select * from notification where receiver = #{id} and status = #{status}
+</select>
+
+    <select id="selectByUid" resultType="Notification">
+        select * from notification where receiver = #{id} order by gmt_create desc
+    </select>
+
+    <select id="selectById" resultType="Notification">
+        select * from  notification where id = #{id}
+    </select>
+
+    <update id="updateByPrimaryKey" parameterType="Notification">
+        update notification
+        set notifier = #{notifier},receiver=#{receiver},outer_id = #{outerId},type=#{type},gmt_create=#{gmtCreate},status=#{status},notifier_name=#{notifierName},outer_title=#{outerTitle}
+        where id = #{id}
+    </update>
+
+
+</mapper>

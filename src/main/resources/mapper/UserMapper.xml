@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhl.community.mapper.UserMapper">
+    <select id="findAll" resultType="User">
+        select * from user;
+    </select>
+
+    <select id="findByAccId" parameterType="String" resultType="User">
+        select * from user where account_id = #{id};
+    </select>
+
+    <select id="findByToken" parameterType="String" resultType="User">
+        select * from user where token = #{token};
+    </select>
+
+
+    <insert id="addUser" parameterType="User">
+        insert into user(account_id, name, token, GMT_CREATE, GMT_MODIFIED,avatar_url) values (#{accpuntId},#{name},#{token},#{gmtCreate},#{gmtModified},#{avatar_url});
+    </insert>
+
+    <select id="findById" resultType="User">
+        select * from user where id = #{id};
+    </select>
+
+    <select id="findByEmail" resultType="User">
+        select * from user where email = #{email}
+    </select>
+
+    <insert id="insert" parameterType="User">
+        insert into user (account_id, name, GMT_CREATE, GMT_MODIFIED, avatar_url, email, password)
+        VALUES (#{accpuntId},#{name},#{gmtCreate},#{gmtModified},#{avatarUrl},#{email},#{password})
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="User">
+        update user
+        set account_id = #{accpuntId},name=#{name},token=#{token},GMT_CREATE=#{gmtCreate},GMT_MODIFIED=#{gmtModified},avatar_url=#{avatarUrl},email=#{email},password=#{password}
+        where id = #{id}
+    </update>
+
+    <select id="findByEmailAndPass" resultType="User">
+        select * from user
+        where email = #{email} and password = #{password}
+    </select>
+
+
+
+</mapper>

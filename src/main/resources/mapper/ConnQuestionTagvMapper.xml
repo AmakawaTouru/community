@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhl.community.mapper.ConnQuestionTagvMapper">
+
+    <select id="deleteByQuestionId">
+        delete from conn_question_tagv where qid = #{id}
+    </select>
+
+    <insert id="insert">
+        insert into conn_question_tagv (qid, tvid) values (#{qid},#{vid})
+    </insert>
+
+    <select id="selectTvidsByQid" resultType="Integer">
+        select tvid from conn_question_tagv where qid = #{qid}
+    </select>
+
+    <select id="selectQidsByTvid" resultType="Integer">
+        select distinct qid from conn_question_tagv
+        where tvid in
+        <foreach collection="list" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+        and qid != #{qid}
+        limit 10
+    </select>
+
+
+</mapper>

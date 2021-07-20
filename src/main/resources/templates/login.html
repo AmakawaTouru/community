@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/css/community.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/bootstrap.min.js" type="application/javascript"></script>
+
+    <link rel="stylesheet" href="/css/login.css">
+
+
+</head>
+<body class="login-body">
+    <div class="login-main">
+        <div class="login-page container-fluid">
+            <div class="row login-page-main">
+<!--                左边框-->
+                <div class="login-left col-lg-8 col-md-8 col-sm-8 col-xs-8">
+<!--                    logo-->
+                    <div class="login-logo">
+                        <i class="iconfont icon-LOL-xiaguxianfeng login_ali_icon"></i>
+                        <b><a class="logo" href="/">安洁社区</a></b>
+                    </div>
+<!--                    登录-->
+                    <form class="login-form" action="/login" method="post"
+                          data-validator-option="{theme:'yellow_right_effect', stopOnError:true}">
+                        <div class="form-group">
+                            <label for="login-email">
+                                <img src="/icons/envelope-open.svg" class="login-icon">&nbsp;邮箱
+                            </label>
+<!--                            输入邮箱登录-->
+                            <input type="email" class="form-control" id="login-email" placeholder="Email"
+                                   name="email" data-rule="邮箱: required; email">
+                        </div>
+                        <div class="form-group">
+                            <label for="login-pwd">
+                                <img src="/icons/lock.svg" class="login-icon">&nbsp;密码
+                            </label>
+<!--                            输入密码-->
+                            <input type="password" class="form-control" id="login-pwd" placeholder="Password"
+                                   name="password" data-rule="密码:required;length(6~16)">
+                        </div>
+<!--                        多选框-->
+                        <div class="checkbox">
+                            <label>
+                                <input id="remember-me" type="checkbox" name="rememberFlag">记住我
+                            </label>
+                        </div>
+<!--                        登录出错-->
+                        <div>
+                            <button type="submit" class="btn btn-primary btn-publish">登录</button>
+                            <div th:if="${loginFail !=null }">
+                                <span class="red">请输入正确的信息</span>
+                                <button type="submit" class="btn btn-primary btn-publish" onclick="modify()">忘记密码</button>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+<!--                登录页面右边-->
+                <div class="login-right col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                    <div class="login-other-all">
+                        <h4>第三方登录</h4>
+<!--                        用GitHub登录-->
+                        <a class="login-other" th:href="@{https://github.com/login/oauth/authorize(client_id='14774ff21f5b41de1d38',redirect_uri=${#httpServletRequest.getServletContext().getAttribute('redirectUri')},scope='user',state=1)}">
+                            <img src="/imgs/github.svg" class="login-icon">
+                            Github
+                        </a>
+<!--&lt;!&ndash;                        用Gitee登录&ndash;&gt;-->
+<!--                        <a href="https://gitee.com/oauth/authorize?client_id=8946d87d3965015cdb6eb9ac8262a077b61a8636ab66dbad08485529677cef64&amp;redirect_uri=http://www.dbeetle.cn/giteeCallback&amp;response_type=code&amp;scope=user_info&amp;state=giteelogin"-->
+<!--                           class="login-other">-->
+<!--                            <img src="/imgs/gitee.svg" class="login-icon">-->
+<!--                            Gitee-->
+<!--                        </a>-->
+<!--&lt;!&ndash;                        用QQ登录&ndash;&gt;-->
+<!--                        <a href="/loginByQQ">-->
+<!--                            <img src="/imgs/QQ.svg" class="login-icon">-->
+<!--                            QQ-->
+<!--                        </a>-->
+                    </div>
+                </div>
+            </div>
+            <div class="login-page-footer">
+                <img src="/icons/info.svg" class="login-icon">&nbsp;
+                <b>第一次来到安洁社区？  <a href="/register">创建一个账号吧</a></b>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <!--登录页底-->
+    <div class="footer-word">
+        Copyright © 2020 · Autodidact ·
+        粤ICP备20010366号-1
+        All rights reserved
+    </div>
+
+
+
+</body>
+</html>
