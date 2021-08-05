@@ -2,6 +2,11 @@ package com.zhl.community.provider;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.internal.OSSHeaders;
+import com.aliyun.oss.model.CannedAccessControlList;
+import com.aliyun.oss.model.ObjectMetadata;
+import com.aliyun.oss.model.PutObjectRequest;
+import com.aliyun.oss.model.StorageClass;
 import com.zhl.community.exception.CustomizeErrorCode;
 import com.zhl.community.exception.CustomizeException;
 import org.springframework.beans.factory.annotation.Value;
@@ -48,19 +53,27 @@ public class OssClientAuthorization {
         // 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
 
+        PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName,generatedFileName, inputStream);
+
+        // 如果需要上传时设置存储类型和访问权限，请参考以下示例代码。
+        ObjectMetadata metadata = new ObjectMetadata();
+        metadata.setHeader(OSSHeaders.OSS_STORAGE_CLASS, StorageClass.Standard.toString());
+        metadata.setObjectAcl(CannedAccessControlList.PublicRead);
+        putObjectRequest.setMetadata(metadata);
 
         // 上传文件到指定的存储空间（bucketName）并将其保存为指定的文件名称（objectName）。
-        ossClient.putObject(bucketName, generatedFileName, inputStream);
+        ossClient.putObject(putObjectRequest);
 
         Long dateTime = 1962631209000L;
         Date expiration = new Date(dateTime);
 
-        URL url = ossClient.generatePresignedUrl(bucketName, generatedFileName, expiration);
-//        System.out.println(url.toString());
+
+        String url = ossClient.generatePresignedUrl(bucketName, generatedFileName, expiration).toString();
+//        System.out.println(url.split("\\?")[0]);
         if(url != null){
             // 关闭OSSClient。
             ossClient.shutdown();
-            return url.toString();
+            return url.split("\\?")[0];
         }else{
             //抛出文件上传失败的异常
             throw new CustomizeException(CustomizeErrorCode.FILE_UPLOAD_FAILURE);

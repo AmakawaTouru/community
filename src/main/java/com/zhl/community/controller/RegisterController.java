@@ -50,7 +50,7 @@ public class RegisterController {
             user.setPassword(password);
             user.setAccpuntId(email);
             user.setEmail(email);
-            user.setAvatarUrl("#");
+            user.setAvatarUrl("https://oss-anjieliya-guangzhou.oss-cn-guangzhou.aliyuncs.com/a8e53ddc-5383-43e6-bcec-0943bcc20c50.jpg");
             userService.create(user);
             model.addAttribute("signupSuccess", "success");
             return "register";
@@ -61,9 +61,6 @@ public class RegisterController {
         }
 
     }
-
-
-
 
 
     @ResponseBody
