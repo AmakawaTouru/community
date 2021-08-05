@@ -4,7 +4,10 @@
 Spring Boot + MyBatis + MySQL + BootStrap + Ajax + Thymeleaf
 
 ### 项目预览
+[img](http://m.qpic.cn/psc?/V12qOu4F0ZpoXd/TmEUgtj9EK6.7V8ajmQrEEpp0fAgxAGeIg2UptXQ8Ctv3N5Ki58h1NyoJYVf96rrp5O2QkmfGrLX2iVJl2IelmV*yeXifIx8dIGWNlhjeWg!/b&bo=WwdhAwAAAAADJzw!&rf=viewer_4)
 
+### 项目地址
+www.amakawa.top
 
 ### 项目简介
 该社区是一个互动交流平台，实现了注册登录，第三方登录，发帖评论，回复点赞，消息提醒，内容搜索等功能。
